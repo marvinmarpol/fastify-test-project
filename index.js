@@ -1,10 +1,9 @@
 // Require the framework and instantiate it
 const fastify = require("fastify")({ logger: true })
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-    return { hello: 'world' }
-})
+
+fastify.register(require('./mongodb-connector'))
+fastify.register(require('./route'))
 
 // Run the server!
 const start = async()=>{
