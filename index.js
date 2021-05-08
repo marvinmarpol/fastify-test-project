@@ -8,7 +8,7 @@ fastify.route({
     schema: {
         // requests needs to have a querystring with a `name` parameter
         querystring: {
-            name: { type: 'string' }
+            id: { type: 'number' }
         },
         // the response needs to be an object with `hello` properties of type string
         response: {
