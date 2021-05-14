@@ -1,26 +1,11 @@
 'use strict'
 
 const fastify = require('fastify')()
+const fastifyPlugin = require('fastify-plugin')
 
 fastify.decorateRequest('answer', 42)
 
-fastify.register(async function authenticatedContext (childServer) {
-  childServer.register(require('fastify-bearer-auth'), { keys: ['abc123'] })
-
-  childServer.route({
-    path: '/one',
-    method: 'GET',
-    handler (request, response) {
-      response.send({
-        answer: request.answer,
-        // request.foo will be undefined as it's only defined in publicContext
-        foo: request.foo,
-        // request.bar will be undefined as it's only defined in grandchildContext
-        bar: request.bar
-      })
-    }
-  })
-})
+// `authenticatedContext` omitted for clarity
 
 fastify.register(async function publicContext (childServer) {
   childServer.decorateRequest('foo', 'foo')
@@ -32,13 +17,14 @@ fastify.register(async function publicContext (childServer) {
       response.send({
         answer: request.answer,
         foo: request.foo,
-        // request.bar will be undefined as it's only defined in grandchildContext
         bar: request.bar
       })
     }
   })
 
-  childServer.register(async function grandchildContext (grandchildServer) {
+  childServer.register(fastifyPlugin(grandchildContext))
+
+  async function grandchildContext (grandchildServer) {
     grandchildServer.decorateRequest('bar', 'bar')
 
     grandchildServer.route({
@@ -52,7 +38,7 @@ fastify.register(async function publicContext (childServer) {
         })
       }
     })
-  })
+  }
 })
 
 fastify.listen(3000)
