@@ -1,18 +1,58 @@
-// Require the framework and instantiate it
-const fastify = require("fastify")({ logger: true })
+'use strict'
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-    return { hello: 'world' }
+const fastify = require('fastify')()
+
+fastify.decorateRequest('answer', 42)
+
+fastify.register(async function authenticatedContext (childServer) {
+  childServer.register(require('fastify-bearer-auth'), { keys: ['abc123'] })
+
+  childServer.route({
+    path: '/one',
+    method: 'GET',
+    handler (request, response) {
+      response.send({
+        answer: request.answer,
+        // request.foo will be undefined as it's only defined in publicContext
+        foo: request.foo,
+        // request.bar will be undefined as it's only defined in grandchildContext
+        bar: request.bar
+      })
+    }
+  })
 })
 
-// Run the server!
-const start = async()=>{
-    try{
-        await fastify.listen(3000)
-    } catch(err){
-        fastify.log.error(err)
-        process.exit(1)
+fastify.register(async function publicContext (childServer) {
+  childServer.decorateRequest('foo', 'foo')
+
+  childServer.route({
+    path: '/two',
+    method: 'GET',
+    handler (request, response) {
+      response.send({
+        answer: request.answer,
+        foo: request.foo,
+        // request.bar will be undefined as it's only defined in grandchildContext
+        bar: request.bar
+      })
     }
-}
-start()
+  })
+
+  childServer.register(async function grandchildContext (grandchildServer) {
+    grandchildServer.decorateRequest('bar', 'bar')
+
+    grandchildServer.route({
+      path: '/three',
+      method: 'GET',
+      handler (request, response) {
+        response.send({
+          answer: request.answer,
+          foo: request.foo,
+          bar: request.bar
+        })
+      }
+    })
+  })
+})
+
+fastify.listen(3000)
