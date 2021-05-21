@@ -1,9 +1,18 @@
+// https://www.fastify.io/docs/latest/Decorators/
 // Require the framework and instantiate it
 const fastify = require("fastify")({ logger: true })
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-    return { hello: 'world' }
+// Decorate request with a 'user' property
+fastify.decorateRequest('user', '')
+
+// Update our property
+fastify.addHook('preHandler', (req, reply, done) => {
+  req.user = 'Marvin Mitchell'
+  done()
+})
+// And finally access it
+fastify.get('/', (req, reply) => {
+  reply.send(`Hello, ${req.user}!`)
 })
 
 // Run the server!
