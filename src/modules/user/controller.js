@@ -1,4 +1,3 @@
-// import required usecase
 const usecase = require('./usecase');
 
 const checkUser = async (request, reply) => {

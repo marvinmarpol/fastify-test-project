@@ -6,11 +6,6 @@ const fastify = require('fastify')({
     logger: true,
 });
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-    return { config };
-});
-
 // Registering routes
 fastify.register(require('./modules/user/route'));
 
@@ -22,5 +17,5 @@ const start = async () => {
         fastify.log.error(err);
         process.exit(1);
     }
-};
+}
 start();

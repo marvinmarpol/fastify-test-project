@@ -1,5 +1,7 @@
-async function checkUser(id) {
-    return id;
+const repository = require('./repository');
+
+const checkUser = async (id) => {
+    return await repository.getUserByID(id);
 }
 
 module.exports = Object.freeze({

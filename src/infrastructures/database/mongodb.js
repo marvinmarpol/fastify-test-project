@@ -1,19 +1,29 @@
 // get the configuration
-const { config } = require("../../config");
+const config = require('../../config');
 
 // import the required library
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const { DEFAULT_VALUE } = require('./constant')
 
 // connect to mongodb
-async function connect() {
-    if (!mongoose.connection.readyState == mongoose.ConnectionStates.connected) {
-        return mongoose.connect(config.mongodb.connectionString, config.mongodb.options);
+connect = async () => {
+    if (mongoose.connection.readyState !== mongoose.STATES.connected) {
+        return await mongoose.connect(config.mongodb.connectionString, config.mongodb.options);
     }
+    return mongoose;
 }
 
-findAll,
-findByID,
+
+findAll = async (schema) => {
+    return await schema.find({}).limit(DEFAULT_VALUE.findLimit);
+}
+
+findByID = async (schema, id) => {
+    return await schema.findById(id);
+}
 
 module.exports = Object.freeze({
-    connect
-})
+    connect,
+    findAll,
+    findByID
+});
