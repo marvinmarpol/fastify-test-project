@@ -1,8 +1,7 @@
 // import the required library
 const mongoose = require('mongoose');
 
-// create cchema
-module.exports = mongoose.model('user', new mongoose.Schema({
+const model = {
     isDeleted: {
         type: Boolean,
         default: false,
@@ -16,4 +15,12 @@ module.exports = mongoose.model('user', new mongoose.Schema({
     },
     updatedAt: Date,
     deletedAt: Date,
-}));
+}
+
+const schema = mongoose.model('user', new mongoose.Schema(model));
+
+// create cchema
+module.exports = {
+    model,
+    schema,
+}

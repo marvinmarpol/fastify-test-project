@@ -14,12 +14,12 @@ connect = async () => {
 }
 
 
-findAll = async (schema) => {
-    return await schema.find({}).limit(DEFAULT_VALUE.findLimit);
+findAll = async (model) => {
+    return await model.schema.find({}).limit(DEFAULT_VALUE.findLimit);
 }
 
-findByID = async (schema, id) => {
-    return await schema.findById(id);
+findByID = async (model, id) => {
+    return await model.schema.findById(id);
 }
 
 module.exports = Object.freeze({
