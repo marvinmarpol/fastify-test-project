@@ -3,8 +3,11 @@ const config = require('./config');
 
 // Import fastify framework and instantiate it
 const fastify = require('fastify')({
-    logger: true,
+    logger: config.app.logger,
 });
+
+// Registering hooks
+require('./hooks/request-log')(fastify);
 
 // Registering routes
 fastify.register(require('./modules/user/route'));

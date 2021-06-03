@@ -1,7 +1,7 @@
 // import the required library
 const mongoose = require('mongoose');
 
-const model = {
+const entity = {
     isDeleted: {
         type: Boolean,
         default: false,
@@ -17,10 +17,11 @@ const model = {
     deletedAt: Date,
 }
 
-const schema = mongoose.model('user', new mongoose.Schema(model));
+getSchema = () => {
+    return mongoose.model('user', new mongoose.Schema(entity));
+}
 
 // create cchema
-module.exports = {
-    model,
-    schema,
-}
+module.exports = Object.freeze({
+    getSchema,
+})

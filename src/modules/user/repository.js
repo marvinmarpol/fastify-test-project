@@ -1,5 +1,5 @@
 const db = require('../../infrastructures/database/mongodb');
-const user = require('./model');
+const user = require('./entity');
 const { ERROR_MESSAGE } = require('./constant');
 
 getUserByID = async (id) => {

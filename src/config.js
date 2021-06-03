@@ -6,8 +6,15 @@ const version = require('../package.json').version;
 const DEPLOYMENT_LEVEL = {
     local: 'local',
     development: 'development',
-    production: 'production'
+    production: 'production',
 };
+
+// map deploytment level to log level
+const LOG_LEVEL = {
+    [DEPLOYMENT_LEVEL.local]: 'trace',
+    [DEPLOYMENT_LEVEL.development]: 'info',
+    [DEPLOYMENT_LEVEL.production]: 'error',
+}
 
 // init environment variables which used globaly in this module
 let baseURL = process.env.BASE_URL || 'http://localhost';
@@ -20,7 +27,7 @@ module.exports = {
         port,
         nodeEnv,
         logger: {
-            level: process.env.LOG_LEVEL || 'trace',
+            level: LOG_LEVEL[nodeEnv] || 'trace',
             customLevels: {
                 kios: 45,
             },
