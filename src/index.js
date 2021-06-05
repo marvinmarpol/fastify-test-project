@@ -7,7 +7,10 @@ const fastify = require('fastify')({
 });
 
 // Registering hooks
-require('./hooks/request-log')(fastify);
+require('./hooks/request-hook')(fastify);
+
+// Registering plugins
+require('./plugins/core-plugin')(fastify);
 
 // Registering routes
 fastify.register(require('./modules/user/route'));

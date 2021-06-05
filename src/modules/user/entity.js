@@ -17,8 +17,10 @@ const entity = {
     deletedAt: Date,
 }
 
+const schema = mongoose.model('user', new mongoose.Schema(entity));
+
 getSchema = () => {
-    return mongoose.model('user', new mongoose.Schema(entity));
+    return schema;
 }
 
 // create cchema

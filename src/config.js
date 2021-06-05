@@ -60,7 +60,7 @@ module.exports = {
                 version,
             },
             host: `${baseURL}:${port}`,
-            schemes: ['http'],
+            schemes: ['http', 'https'],
             consumes: ['application/json'],
             produces: ['application/json'],
         },
