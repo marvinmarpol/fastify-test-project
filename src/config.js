@@ -18,13 +18,15 @@ const LOG_LEVEL = {
 
 // init environment variables which used globaly in this module
 let baseURL = process.env.BASE_URL || 'http://localhost';
-let port = process.env.PORT || 80;
+let port = process.env.PORT || 3000;
+let host = process.env.HOST || '0.0.0.0';
 let nodeEnv = process.env.NODE_ENV || DEPLOYMENT_LEVEL.local;
 
 module.exports = {
     app: {
         baseURL,
         port,
+        host,
         nodeEnv,
         logger: {
             level: LOG_LEVEL[nodeEnv] || 'trace',

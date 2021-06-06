@@ -1,6 +1,7 @@
-// import the required library
+const repository = require('./repository');
 const mongoose = require('mongoose');
 
+// create default entity
 const entity = {
     isDeleted: {
         type: Boolean,
@@ -9,21 +10,18 @@ const entity = {
     name: String,
     phoneNumber: String,
     email: String,
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
+    createdAt: Date,
     updatedAt: Date,
     deletedAt: Date,
 }
 
-const schema = mongoose.model('user', new mongoose.Schema(entity));
-
-getSchema = () => {
-    return schema;
+// create default mongooseSchema
+const mongooseSchema = mongoose.model('user', new mongoose.Schema(entity), 'users');
+getMongooseSchema = () => {
+    return mongooseSchema;
 }
 
 // create cchema
 module.exports = Object.freeze({
-    getSchema,
+    getMongooseSchema,
 })
