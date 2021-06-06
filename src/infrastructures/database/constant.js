@@ -1,5 +1,5 @@
 const DEFAULT_VALUE = {
-    findLimit: 20
+    findLimit: 10
 }
 
 module.exports = {
