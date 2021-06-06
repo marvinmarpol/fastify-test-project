@@ -1,6 +1,10 @@
 // get the config variables
 const config = require('./config');
 
+// get monitoring such as sentry and newrelic
+const sentry = require('./infrastructures/monitoring/sentry');
+const newrelic = require('newrelic');
+
 // Import fastify framework and instantiate it
 const fastify = require('fastify')({
     logger: config.app.logger,
@@ -10,7 +14,7 @@ const fastify = require('fastify')({
 require('./hooks/request-hook')(fastify);
 
 // Registering plugins
-require('./plugins/core-plugin')(fastify);
+require('./plugins/fastify-core-plugin')(fastify);
 
 // Registering routes
 fastify.register(require('./modules/user/route'));
