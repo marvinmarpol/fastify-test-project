@@ -8,7 +8,7 @@ const checkUser = async (request, reply) => {
         reply.code(err.getHttpCode()).send(err);
     }
     if (!data) {
-        reply.code(StatusCodes.NOT_FOUND);
+        reply.code(StatusCodes.NOT_FOUND).send(data);
     }
     reply.send(data);
 }
