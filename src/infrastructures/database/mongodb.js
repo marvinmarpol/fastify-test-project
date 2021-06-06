@@ -13,13 +13,12 @@ connect = async () => {
     return mongoose;
 }
 
-
 findAll = async (entity) => {
-    return await entity.getSchema().find({}).limit(DEFAULT_VALUE.findLimit);
+    return await entity.getMongooseSchema().find({}).limit(DEFAULT_VALUE.findLimit);
 }
 
 findByID = async (entity, id) => {
-    return await entity.getSchema().findById(id);
+    return await entity.getMongooseSchema().findById(id);
 }
 
 module.exports = Object.freeze({

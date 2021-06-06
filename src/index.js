@@ -18,7 +18,7 @@ fastify.register(require('./modules/user/route'));
 // Run the server
 const start = async () => {
     try {
-        await fastify.listen(config.app.port);
+        await fastify.listen(config.app.port, config.app.host);
     } catch (err) {
         fastify.log.error(err);
         process.exit(1);
