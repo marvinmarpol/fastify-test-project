@@ -41,6 +41,10 @@ module.exports = {
         methods: ['OPTIONS', 'GET', 'PUT', 'PATCH', 'POST', 'DELETE'],
         maxAge: 90,
     },
+    basicAuth: {
+        username: process.env.BASICUSR || 'kiosaneka',
+        password: process.env.BASICPASS || 'kiosaneka',
+    },
     hit: { max: 250, timeWindow: '1 minute' },
     mongodb: {
         connectionString: process.env.DB_URI || 'mongodb://localhost:27017/local?readPreference=primary&ssl=false',

@@ -1,5 +1,5 @@
-const repository = require('./repository');
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 // create default entity
 const entity = {
@@ -16,12 +16,22 @@ const entity = {
 }
 
 // create default mongooseSchema
-const mongooseSchema = mongoose.model('user', new mongoose.Schema(entity), 'users');
+const mongooseSchema = new mongoose.Schema(entity);
+
+// create default mongooseModel
+const mongooseModel = mongoose.model('user', mongooseSchema, 'users');
+
+
 getMongooseSchema = () => {
     return mongooseSchema;
+}
+
+getMongooseModel = () => {
+    return mongooseModel;
 }
 
 // create cchema
 module.exports = Object.freeze({
     getMongooseSchema,
+    getMongooseModel,
 })

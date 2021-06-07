@@ -5,7 +5,6 @@ class APIError extends Error {
         super(description);
         this.httpCode = httpCode;
     }
-
     getHttpCode() {
         return this.httpCode;
     }

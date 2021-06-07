@@ -1,5 +1,5 @@
 const ERROR_MESSAGE = {
-    dbConnectionFailed: 'Connection to db failed'
+    dbConnectionFailed: 'connection to db failed',
 }
 
 module.exports = {

@@ -16,7 +16,13 @@ require('./hooks/request-hook')(fastify);
 // Registering plugins
 require('./plugins/fastify-core-plugin')(fastify);
 
+// Registering decorators
+require('./decorators/reply-decorator')(fastify);
+
 // Registering routes
+fastify.get('/', async () => {
+    return config;
+});
 fastify.register(require('./modules/user/route'));
 
 // Run the server
